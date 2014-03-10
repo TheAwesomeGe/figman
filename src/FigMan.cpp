@@ -2,17 +2,9 @@
 
 namespace figman {
 
-/**
- * The current configuration.
- */
 static std::map<std::string, std::string> config;
 
-/**
- * Loads a config file.
- *
- * @param fileName The name of the file
- */
-void loadConfig(std::string fileName) {
+void loadConfig(const std::string fileName) {
 	config.clear();
 	std::string line;
 	std::ifstream file(fileName.c_str());
@@ -35,18 +27,11 @@ void loadConfig(std::string fileName) {
 	}
 }
 
-/**
- * Gets the value for a given key.
- *
- * @param key The key
- * @return The value
- * @throw UnknownKeyException
- */
-std::string getValue(std::string key) {
+std::string getValue(const std::string key) const {
 	std::map<std::string, std::string>::iterator it = config.find(key);
 	if(it != config.end())
 		return it->second;
-	else throw UnknownKeyException();
+	else return NULL;
 }
 
 }

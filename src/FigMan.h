@@ -6,24 +6,22 @@
 #include <string>
 #include <algorithm>
 
-#include "UnknownKeyException.h"
-
 namespace figman {
 
 /**
  * Loads a config file.
  *
- * @param fileName The name of the file
+ * @param fileName The name of the file.
  */
-static void loadConfig(std::string fileName);
+static void loadConfig(const std::string fileName);
 
 /**
  * Gets the value for a given key.
  *
- * @param key The key
- * @return The value
+ * @param key The key.
+ * @return The corresponding value or NULL if the key does not exist.
  */
-static std::string getValue(std::string key);
+static std::string getValue(const std::string key) const;
 
 }
 
