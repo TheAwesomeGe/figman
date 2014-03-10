@@ -2,7 +2,11 @@ PROGRAM = FigMan
 
 CXXFLAGS = -O2 -std=c++11 -g -Wall
 
-SRC = $(wildcard src/*.cpp examples/OK.cpp)
+SRC = $(wildcard src/*.cpp)
+
+EXAMPLE_DIR = examples
+
+EXAMPLES = $(wildcard examples/*.example)
 
 OBJS = 
 
@@ -15,8 +19,21 @@ $(PROGRAM): $(OBJS)
 
 all: $(PROGRAM)
 
-clean:
-	rm -rf $(PROGRAM) $(PROGRAM).dSYM 
+example_cnf:
+	$(CXX) $(CXXFLAGS) -o $(EXAMPLE_DIR)/cnf.example $(EXAMPLE_DIR)/ConfigNotFoundExample.cpp $(SRC) $(INCLUDES) $(LIBS)
 	
-run: $(PROGRAM)
-	./$(PROGRAM)
+example_ok:
+	$(CXX) $(CXXFLAGS) -o $(EXAMPLE_DIR)/ok.example $(EXAMPLE_DIR)/OKExample.cpp $(SRC) $(INCLUDES) $(LIBS)
+	
+example_knf:
+	$(CXX) $(CXXFLAGS) -o $(EXAMPLE_DIR)/knf.example $(EXAMPLE_DIR)/KeyNotFoundExample.cpp $(SRC) $(INCLUDES) $(LIBS)
+
+examples: example_cnf example_ok example_knf
+	
+run_examples: examples
+	./$(EXAMPLE_DIR)/cnf.example
+	./$(EXAMPLE_DIR)/ok.example
+	./$(EXAMPLE_DIR)/knf.example
+	
+clean:
+	rm -rf $(PROGRAM) *.dSYM $(EXAMPLE_DIR)/*.example $(EXAMPLE_DIR)/*.dSYM	
