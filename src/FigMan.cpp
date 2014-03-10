@@ -2,12 +2,15 @@
 
 namespace figman {
 
-static std::map<std::string, std::string> config;
+std::map<std::string, std::string> config;
 
-void loadConfig(const std::string fileName) {
+bool loadConfig(const std::string fileName) {
 	config.clear();
 	std::string line;
 	std::ifstream file(fileName.c_str());
+
+	if(!file.is_open())
+		return false;
 
 	while(std::getline(file, line)) {
 		line.erase(std::remove_if(line.begin(), line.end(), ::isspace), line.end()); // Remove whitespaces
@@ -25,9 +28,16 @@ void loadConfig(const std::string fileName) {
 
 		config[key] = value;
 	}
+
+	return true;
 }
 
-std::string getValue(const std::string key) const {
+bool hasKey(const std::string key) {
+	std::map<std::string, std::string>::iterator it = config.find(key);
+	return it != config.end();
+}
+
+std::string getValue(const std::string key) {
 	std::map<std::string, std::string>::iterator it = config.find(key);
 	if(it != config.end())
 		return it->second;

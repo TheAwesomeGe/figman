@@ -2,7 +2,7 @@ PROGRAM = FigMan
 
 CXXFLAGS = -O2 -std=c++11 -g -Wall
 
-SRC = $(wildcard src/*.cpp)
+SRC = $(wildcard src/*.cpp examples/OK.cpp)
 
 OBJS = 
 
@@ -16,4 +16,7 @@ $(PROGRAM): $(OBJS)
 all: $(PROGRAM)
 
 clean:
-	rm -f $(PROGRAM)
+	rm -rf $(PROGRAM) $(PROGRAM).dSYM 
+	
+run: $(PROGRAM)
+	./$(PROGRAM)
